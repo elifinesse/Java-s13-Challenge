@@ -1,5 +1,8 @@
 package employeeApp;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class Company {
     private String id;
     private String name;
@@ -29,12 +32,42 @@ public class Company {
         return giro;
     }
     public void setGiro(double giro) {
-        this.giro = giro;
+        if(giro < 0){
+            this.giro = 0;
+        } else {
+            this.giro = giro;    
+        }   
     }
     public String[] getDeveloperNames() {
         return developerNames;
     }
     public void setDeveloperNames(String[] developerNames) {
         this.developerNames = developerNames;
+    }
+    public void addEmployee(int index, String name){
+        try{
+            boolean doesExist = false;
+            for(String developerName: developerNames){
+                if(developerName != null && developerName.equals(name)){
+                    doesExist = true;
+                    break;
+                }
+            }
+            if(!doesExist){
+                if(developerNames[index] == null){
+                    developerNames[index] = name;
+                } else{
+                    System.out.println("This index is occupied.");
+                }
+            } else{
+                System.out.println("An employee with the name " + name + " already exists.");
+            }
+        } catch(Exception exception){
+            System.out.println("Invalid index.");
+        }   
+    }
+    @Override
+    public String toString() {
+        return "Id: " + id + " Name: " + name + " Giro: " + giro + " Developer Names: " + Arrays.toString(developerNames);
     }
 }
